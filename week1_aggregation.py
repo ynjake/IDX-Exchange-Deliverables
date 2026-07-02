@@ -1,16 +1,5 @@
 """
 Week 1 Deliverable - Monthly Dataset Aggregation
---------------------------------------------------
-Follows the handbook's example workflow style:
-    sold1 = pd.read_csv('CRMLSSold202401.csv')
-    sold2 = pd.read_csv('CRMLSSold202402.csv')
-    sold = pd.concat([sold1, sold2])
-
-One small addition: some files on the server have "_filled" in the name.
-Those files have 2 extra columns tacked onto the end that we don't need,
-so we use a tiny helper function, load_month(), to read the file and drop
-those 2 columns ONLY when the filename contains "_filled". Every file still
-gets its own variable, just like the handbook example.
 """
 
 import pandas as pd
@@ -21,11 +10,6 @@ def load_month(filename):
     """
     Reads one monthly CSV. If the filename contains '_filled', drops the
     last 2 columns (those files have 2 extra columns we don't need).
-
-    Some files contain special characters (like curly quotes) that aren't
-    valid standard UTF-8 text. If the normal read fails because of that,
-    we automatically retry using the 'cp1252' encoding (the standard
-    Windows text encoding), which handles those characters correctly.
     """
     try:
         df = pd.read_csv(filename, low_memory=False)
@@ -36,9 +20,9 @@ def load_month(filename):
         df = df.iloc[:, :-2]
     return df
 
-# ---------------------------------------------------------------------------
-# SOLD FILES - one variable per month
-# ---------------------------------------------------------------------------
+
+# SOLD FILES
+
 sold1 = load_month('CRMLSSold202401.csv')
 sold2 = load_month('CRMLSSold202402.csv')
 sold3 = load_month('CRMLSSold202403.csv')
@@ -70,6 +54,7 @@ sold28 = load_month('CRMLSSold202604.csv')
 sold29 = load_month('CRMLSSold202605.csv')
 
 # Row count check BEFORE concatenation (sum of each individual month)
+
 sold_rows_before = (
     len(sold1) + len(sold2) + len(sold3) + len(sold4) + len(sold5) + len(sold6)
     + len(sold7) + len(sold8) + len(sold9) + len(sold10) + len(sold11) + len(sold12)
@@ -88,10 +73,10 @@ sold = pd.concat([
 print(f"Sold - rows after concatenation: {len(sold)}")
 
 
-# ---------------------------------------------------------------------------
-# LISTING FILES - one variable per month
+
+# Listing Files
 # NOTE: Listing files start at 202403 (no 202401/202402 exist on the server)
-# ---------------------------------------------------------------------------
+
 list3 = load_month('CRMLSListing202403.csv')
 list4 = load_month('CRMLSListing202404.csv')
 list5 = load_month('CRMLSListing202405.csv')
@@ -120,7 +105,7 @@ list27 = load_month('CRMLSListing202603.csv')
 list28 = load_month('CRMLSListing202604.csv')
 list29 = load_month('CRMLSListing202605.csv')
 
-# Row count check BEFORE concatenation (sum of each individual month)
+# Row count check before concat
 list_rows_before = (
     len(list3) + len(list4) + len(list5) + len(list6)
     + len(list7) + len(list8) + len(list9) + len(list10) + len(list11) + len(list12)
@@ -139,9 +124,9 @@ listing = pd.concat([
 print(f"Listings - rows after concatenation: {len(listing)}")
 
 
-# ---------------------------------------------------------------------------
-# FILTER BOTH DATASETS TO RESIDENTIAL ONLY
-# ---------------------------------------------------------------------------
+
+# Filter to residential
+
 print(f"\nSold - rows before Residential filter: {len(sold)}")
 sold = sold[sold.PropertyType == 'Residential']
 print(f"Sold - rows after Residential filter: {len(sold)}")
@@ -151,11 +136,11 @@ listing = listing[listing.PropertyType == 'Residential']
 print(f"Listings - rows after Residential filter: {len(listing)}")
 
 
-# ---------------------------------------------------------------------------
-# SAVE FINAL CSVs - saved into the IDX_Deliverables subfolder
-# ---------------------------------------------------------------------------
+
+# Saving final CVs to IDX_Deliverables folder
+
 output_folder = "IDX_Deliverables"
-os.makedirs(output_folder, exist_ok=True)  # creates the folder if it doesn't already exist
+os.makedirs(output_folder, exist_ok=True) 
 
 sold.to_csv(os.path.join(output_folder, 'sold.csv'), index=False)
 listing.to_csv(os.path.join(output_folder, 'listings.csv'), index=False)

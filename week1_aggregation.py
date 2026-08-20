@@ -52,6 +52,8 @@ sold26 = load_month('CRMLSSold202602.csv')
 sold27 = load_month('CRMLSSold202603.csv')
 sold28 = load_month('CRMLSSold202604.csv')
 sold29 = load_month('CRMLSSold202605.csv')
+sold30 = load_month('CRMLSSold202606.csv')
+sold31 = load_month('CRMLSSold202607.csv')
 
 # Row count check BEFORE concatenation (sum of each individual month)
 
@@ -60,7 +62,7 @@ sold_rows_before = (
     + len(sold7) + len(sold8) + len(sold9) + len(sold10) + len(sold11) + len(sold12)
     + len(sold13) + len(sold14) + len(sold15) + len(sold16) + len(sold17) + len(sold18)
     + len(sold19) + len(sold20) + len(sold21) + len(sold22) + len(sold23) + len(sold24)
-    + len(sold25) + len(sold26) + len(sold27) + len(sold28) + len(sold29)
+    + len(sold25) + len(sold26) + len(sold27) + len(sold28) + len(sold29) + len(sold30) + len(sold31)
 )
 print(f"Sold - rows before concatenation: {sold_rows_before}")
 
@@ -104,6 +106,9 @@ list26 = load_month('CRMLSListing202602.csv')
 list27 = load_month('CRMLSListing202603.csv')
 list28 = load_month('CRMLSListing202604.csv')
 list29 = load_month('CRMLSListing202605.csv')
+list30 = load_month('CRMLSListing202606.csv')
+list31 = load_month('CRMLSListing202607.csv')
+
 
 # Row count check before concat
 list_rows_before = (
@@ -111,7 +116,7 @@ list_rows_before = (
     + len(list7) + len(list8) + len(list9) + len(list10) + len(list11) + len(list12)
     + len(list13) + len(list14) + len(list15) + len(list16) + len(list17) + len(list18)
     + len(list19) + len(list20) + len(list21) + len(list22) + len(list23) + len(list24)
-    + len(list25) + len(list26) + len(list27) + len(list28) + len(list29)
+    + len(list25) + len(list26) + len(list27) + len(list28) + len(list29) + len(list30) + len(list31)
 )
 print(f"Listings - rows before concatenation: {list_rows_before}")
 
